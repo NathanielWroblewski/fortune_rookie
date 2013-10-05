@@ -23,6 +23,7 @@ FactoryGirl.define do
 
   factory :holding do
     user
+    player
     shares 1
     price_per_share 10_00
   end
@@ -39,5 +40,12 @@ FactoryGirl.define do
 
     price 10_00
     shares 1
+  end
+
+  factory :player do
+    first_name    'Yaron'
+    last_name     'Sadka'
+    draft_year    Time.now.year
+    ipo           32_00
   end
 end

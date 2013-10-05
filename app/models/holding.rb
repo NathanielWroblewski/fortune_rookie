@@ -1,7 +1,9 @@
 class Holding < ActiveRecord::Base
   belongs_to :user
+  belongs_to :player
 
   validates :user, presence: true
+  validates :player, presence: true
   validates :shares, presence: true
   validates :price_per_share, presence: true
 
