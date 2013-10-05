@@ -20,8 +20,12 @@
   <%= csrf_meta_tags %>
 </head>
 <body class="<%%= body_class %>">
+  <% if current_user %>
+    <%= render 'nav_bar' %>
+  <% end %>
   <%= render 'flashes' -%>
   <%= yield %>
+  <%= render 'footer' %>
   <%= render 'javascript' %>
   <%= javascript_include_tag 'http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false' %>
   <%= javascript_include_tag "application" %>
