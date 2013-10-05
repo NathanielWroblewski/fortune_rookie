@@ -20,4 +20,10 @@ FactoryGirl.define do
     price 10_00
     shares 1
   end
+
+  factory :holding do
+    user
+    shares 1
+    price_per_share 10_00
+  end
 end
