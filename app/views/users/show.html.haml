@@ -2,3 +2,24 @@
 %h3
   Account Balance
   = current_user.balance
+
+%h2
+  Recent Purchases
+%h3
+  Buys
+%ul
+  -if @buys.present?
+    - @buys.each do |buy|
+      %li= buy.price
+  -else
+    %li
+      You have no recent purchases.
+%h3
+  Sells
+%ul
+  -if @sales.present?
+    - @sales.each do |sell|
+      %li= sell.price
+  -else
+    %li
+      You have no recent sales.
