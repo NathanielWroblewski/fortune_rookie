@@ -16,7 +16,6 @@ class Buy < ActiveRecord::Base
   def create_transaction
     sell = Sell.pair_with_a_buy(player_id, price)
     if sell
-      self.role = 'completed'
       transaction = Transaction.new(
         buyer_id: buyer_id,
         seller_id: sell.seller_id,

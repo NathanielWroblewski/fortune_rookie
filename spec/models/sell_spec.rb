@@ -107,7 +107,6 @@ describe Sell, '#update_last_ask' do
     player.update_attributes(last_ask: 100_00)
     sell = build(:sell, price: 10_00, player: player, role: 'pending')
 
-    p player.last_ask
     sell.update_last_ask
 
     expect(player.reload.last_ask).to eq sell.price
