@@ -16,6 +16,7 @@ describe Sell, '#buyer_waiting?' do
   it 'return true if someone wants to buy the player' do
     player = create(:player)
     buy = create(:buy, player: player)
+    Transaction.any_instance.stub(:vanquish_holding)
     sell = create(:sell, player: player)
 
     expect(sell.buyer_waiting?).to eq true
@@ -36,6 +37,7 @@ describe Sell, '#create_transaction' do
     seller = create(:user)
     sell = build(:sell, player: player, price: 9_00, seller: seller, shares: 0)
     buy = create(:buy, player: player, price: 10_00, buyer: buyer)
+    Transaction.any_instance.stub(:vanquish_holding)
 
     transaction = sell.create_transaction
 
