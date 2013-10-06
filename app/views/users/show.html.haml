@@ -1,22 +1,50 @@
 %h3
   Welcome
   = current_user.email
+%span
+  We pay $100 for every rookie that becomes a first round draft pick.
+%br
+%span
+  Browse the players, and purchase shares.
+%br
+%span
+  If you choose wisely, you could win.
+%br
+%br
+%span
+  There are two possible outcomes to each event:
+%br
+%span
+  yes, the event will happen, or no, the event won't happen.
+%br
+%span
+  Your opinion on what the outcome will be determines whether you buy or sell shares:
+%br
+%span
+If you predict the market event will happen then you BUY shares.
+%br
+%span
+If you predict the market event will not happen then you SELL shares.
+%br
+%br
 %h4
-  Account Balance
+  Your account balance is
   = current_user.balance_as_money
   = link_to 'Add Money', new_payment_path
-
+  to purchase shares.
+%br
+%br
 .row
   %h5.small-3.columns
-    Recent Transactions    
+    Your recent transactions
 -if @transactions.present?
+  .row
+    %span.small-3.columns
+      Player
+    %span.small-2.columns
+      Price paid
+    %span.small-7.columns
   - @transactions.each do |transaction|
-    .row
-      %span.small-3.columns
-        Player
-      %span.small-2.columns
-        Price paid
-      %span.small-7.columns
     .row
       %span.small-3.columns
         =link_to "#{transaction.player.first_name} #{transaction.player.last_name}", transaction.player
@@ -26,20 +54,21 @@
 -else
   %span.small-3.columns
     You have no recent transactions.
-
+%br
+%br
 .row
   %h5.small-3.columns
-    Holdings
+    Your holdings
 - if current_user.holdings.present?
+  .row
+    %span.small-3.columns
+      Player
+    %span.small-2.columns
+      Shares
+    %span.small-2.columns
+      Price paid
+    %span.small-5.columns
   - current_user.holdings.each do |holding|
-    .row
-      %span.small-3.columns
-        Player
-      %span.small-2.columns
-        Shares
-      %span.small-2.columns
-        Price paid
-      %span.small-5.columns
     .row
       %span.small-3.columns
         =link_to "#{holding.player.first_name} #{holding.player.last_name}", holding.player
