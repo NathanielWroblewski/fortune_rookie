@@ -16,7 +16,7 @@ class Sell < ActiveRecord::Base
   validates :shares, presence: true
 
   def buyer_waiting?
-    Buy.find_by(player_id: player_id).present?
+    Buy.find_by(player_id: player_id, role: 'pending').present?
   end
 
   def create_transaction

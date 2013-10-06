@@ -38,6 +38,6 @@ class Buy < ActiveRecord::Base
   end
 
   def seller_waiting?
-    Sell.find_by(player_id: player_id).present?
+    Sell.find_by(player_id: player_id, role: 'pending').present?
   end
 end
