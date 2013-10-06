@@ -16,12 +16,20 @@ class Transaction < ActiveRecord::Base
   after_create :vanquish_holding
   after_create :increment_seller_account
   after_create :decrement_buyer_account
+  after_create :complete_buy_and_sell
 
   validates :buyer, presence: true
   validates :player, presence: true
   validates :price, presence: true
   validates :seller, presence: true
   validates :shares, presence: true
+
+  def complete_buy_and_sell
+    buy = Buy.find_by(id: buyer_id)
+    sell = Sell.find_by(id: seller_id)
+    buy.update_attributes(role: 'completed')
+    sell.update_attributes(role: 'completed')
+  end
 
   def create_holding
     Holding.create(
