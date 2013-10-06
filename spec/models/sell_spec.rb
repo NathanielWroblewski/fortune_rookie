@@ -12,6 +12,46 @@ describe Sell, 'validations' do
   it { expect(subject).to validate_presence_of(:shares) }
 end
 
+describe Sell, '#buyer_waiting?' do
+  it 'return true if someone wants to buy the player' do
+    player = create(:player)
+    buy = create(:buy, player: player)
+    sell = create(:sell, player: player)
+
+    expect(sell.buyer_waiting?).to eq true
+  end
+
+  it 'returns false if no one wants to buy the player' do
+    player = create(:player)
+    sell = create(:sell, player: player)
+
+    expect(sell.buyer_waiting?).to eq false
+  end
+end
+
+describe Sell, '#create_transaction' do
+  it 'creates a transaction if there is a buyer' do
+    player = create(:player)
+    buyer = create(:user)
+    seller = create(:user)
+    sell = build(:sell, player: player, price: 9_00, seller: seller, shares: 0)
+    buy = create(:buy, player: player, price: 10_00, buyer: buyer)
+
+    transaction = sell.create_transaction
+
+    expect(transaction).to be
+    expect(transaction.buyer_id).to eq buyer.id
+    expect(transaction.seller_id).to eq seller.id
+    expect(transaction.price).to eq sell.price
+  end
+
+  it 'does not create a transaction if there is no buyer' do
+    sell = build(:sell)
+
+    expect(sell.create_transaction).to eq nil
+  end
+end
+
 describe Sell, '#pair_with_a_buy' do
   it 'returns a sale of equal value to the buy price' do
     player = create(:player)

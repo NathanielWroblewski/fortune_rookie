@@ -26,6 +26,11 @@ class Buy < ActiveRecord::Base
     end
   end
 
+  def self.pair_with_a_sell(player_id, sell_price)
+    buys = Buy.where(player_id: player_id).where("price >= ?", sell_price)
+    buys.order('updated_at ASC').first
+  end
+
   def price_in_dollars
     "$#{'%.2f' % (price / 100.0)}"
   end
