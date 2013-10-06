@@ -10,21 +10,24 @@
   <meta charset="utf-8" />
   <meta name="ROBOTS" content="NOODP" />
   <title>Fortune Rookie</title>
-    <!-- Uncomment to make IE8 render like IE7 -->
-    <!-- <meta http-equiv="X-UA-Compatible" content="IE=7" /> -->
+  <!-- Uncomment to make IE8 render like IE7 -->
+  <!-- <meta http-equiv="X-UA-Compatible" content="IE=7" /> -->
 
-    <!-- Set the viewport width to device width for mobile -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Set the viewport width to device width for mobile -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <%= stylesheet_link_tag :application, :media => 'all' %>
   <%= javascript_include_tag "vendor/custom.modernizr" %>
   <%= csrf_meta_tags %>
 </head>
 <body class="<%%= body_class %>">
   <% if current_user %>
-    <%= render 'nav_bar' %>
+  <%= render 'nav_bar' %>
   <% end %>
-  <%= render 'flashes' -%>
-  <%= yield %>
+  <div class="wrapper">
+    <%= render 'flashes' -%>
+    <%= yield %>
+    <div class='push'></div>
+  </div>
   <%= render 'footer' %>
   <%= render 'javascript' %>
   <%= javascript_include_tag 'http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false' %>
