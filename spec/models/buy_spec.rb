@@ -38,7 +38,7 @@ end
 describe Buy, '#pair_with_a_sell' do
   it 'returns the buy of equal value to the sell price' do
     player = create(:player)
-    existing_buy = create(:buy, price: 10_00, player: player)
+    existing_buy = create(:buy, price: 10_00, player: player, role: 'pending')
 
     buy = Buy.pair_with_a_sell(player.id, 10_00)
 
@@ -47,7 +47,7 @@ describe Buy, '#pair_with_a_sell' do
 
   it 'returns a buy with a higher price than the sale price' do
     player = create(:player)
-    existing_buy = create(:buy, price: 20_00, player: player)
+    existing_buy = create(:buy, price: 20_00, player: player, role: 'pending')
 
     buy = Buy.pair_with_a_sell(player.id, 10_00)
 
@@ -56,7 +56,7 @@ describe Buy, '#pair_with_a_sell' do
 
   it 'does not return a buy with a price lower than the sell price' do
     player = create(:player)
-    existing_buy = create(:buy, price: 10_00, player: player)
+    existing_buy = create(:buy, price: 10_00, player: player, role: 'pending')
 
     buy = Buy.pair_with_a_sell(player.id, 20_00)
 
@@ -66,13 +66,22 @@ describe Buy, '#pair_with_a_sell' do
 
   it 'returns the earliest posted buy above the sale price' do
     player = create(:player)
-    early_buy = create(:buy, price: 10_00, player: player)
-    expensive_buy = create(:buy, price: 20_00, player: player)
+    early_buy = create(:buy, price: 10_00, player: player, role: 'pending')
+    expensive_buy = create(:buy, price: 20_00, player: player, role: 'pending')
 
     buy = Buy.pair_with_a_sell(player.id, 5_00)
 
     expect(buy).to_not eq expensive_buy
     expect(buy).to eq early_buy
+  end
+
+  it 'does not return an otherwise valid record if it is not pending' do
+    player = create(:player)
+    existing_buy = create(:buy, price: 20_00, player: player, role: 'completed')
+
+    buy = Buy.pair_with_a_sell(player.id, 10_00)
+
+    expect(buy).to_not eq existing_buy
   end
 end
 
@@ -88,6 +97,7 @@ describe Buy, '#seller_waiting?' do
   it 'returns true if the current player is for sale' do
     player = create(:player)
     sell = create(:sell, player: player)
+    sell.update_attributes(role: 'completed')
     buy = build(:buy, player: player)
 
     expect(buy.seller_waiting?).to eq true
@@ -97,5 +107,15 @@ describe Buy, '#seller_waiting?' do
     buy = build(:buy, player_id: 1)
 
     expect(buy.seller_waiting?).to eq false
+  end
+
+  it 'does not return true if there are only completed buys at the right price' do
+    player = create(:player)
+    sell = create(:sell, player: player)
+    sell.update_attributes(role: 'completed')
+    Sell.where(role: 'pending').destroy_all
+    buy = build(:buy, player: player)
+
+    expect(buy.seller_waiting?).to_not eq true
   end
 end
