@@ -9,4 +9,5 @@ FortuneRookie::Application.routes.draw do
 
   get '/buys/new/:id', to: 'buys#new'
   get '/sells/new/:id', to: 'sells#new'
+  get '/services/:id', to: 'services#player_stats'
 end

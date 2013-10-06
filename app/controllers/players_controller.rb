@@ -5,7 +5,7 @@ class PlayersController < ApplicationController
   end
 
   def show
-    
+    @player = Player.find_by(id: params[:id])
   end
 
 end
