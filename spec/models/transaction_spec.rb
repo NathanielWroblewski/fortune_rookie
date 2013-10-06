@@ -39,8 +39,35 @@ end
 
 describe Transaction, '#price_in_dollars' do
   it 'converts the price into dollars' do
-    transaction = create(:transaction, price: 10_00)
+    transaction = build(:transaction, price: 10_00)
+    transaction.stub(:vanquish_holding)
 
     expect(transaction.price_in_dollars).to eq '$10.00'
+  end
+end
+
+describe Transaction, '#update_player' do
+  it 'updates the current price to equal the last sale price' do
+    player = build(:player, current_price: 500_00)
+    player.stub(:set_current_price)
+    player.save
+    transaction = build(:transaction, player: player, price: 10_00)
+
+    transaction.update_player
+
+    expect(player.reload.current_price).to eq 10_00
+  end
+end
+
+describe Transaction, '#vanquish_holding' do
+  it 'destroys the sellers holding' do
+    seller = create(:user)
+    player = create(:player)
+    holding = create(:holding, user: seller, shares: 10, player: player)
+    transaction = build(:transaction, seller: seller, shares: 10, player: player)
+
+    transaction.vanquish_holding
+
+    expect(seller.holdings).to_not be_present
   end
 end
