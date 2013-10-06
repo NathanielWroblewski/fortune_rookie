@@ -8,6 +8,7 @@ class PlayersController < ApplicationController
     @player = Player.find_by(id: params[:id])
     @players = Player.where(position: @player.position)
     @players.reject!{|player| player.id == @player.id}
+    @holdings = current_user.holdings.reject{|player| player.id == @player.id}
   end
 
 end

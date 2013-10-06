@@ -7,11 +7,21 @@
 
 %div#chart_div
 
+%h2 Jump to your other players
+%ul
+-if @holdings.present?
+  - @holdings.each do |holding|
+    %li= link_to "#{holding.player.first_name} #{holding.player.last_name}", holding.player
+-else
+  %li You have no other holdings.
 
 %h2 Jump to other players
 %ul
-- @players.each do |player|
-  %li= link_to player.first_name + " " + player.last_name, player_path(player)
+-if @players.present?
+  - @players.each do |player|
+    %li= link_to player.first_name + " " + player.last_name, player_path(player)
+-else
+  %li= "There are no other players that play #{player.position}"
 
 
 %h2 Latest News
