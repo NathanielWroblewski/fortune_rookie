@@ -9,3 +9,6 @@
 Player.create(first_name:'Ha Ha', last_name:'Clinton-Dix', ipo: 89_00, draft_year: Time.now.year)
 Player.create(first_name:'Jadeveon', last_name:'Clowney', ipo: 98_00, draft_year: Time.now.year)
 Player.create(first_name:'Khalil', last_name:'Mack', ipo: 86_00, draft_year: Time.now.year)
+Player.create(first_name:'Teddy', last_name:'Bridgewater', ipo: 86_00, draft_year: Time.now.year, position: 'QB', school: 'Louisville')
+Player.create(first_name:'Brett', last_name:'Hundley', ipo: 91_00, draft_year: Time.now.year, position: 'QB', school: 'UCLA')
+

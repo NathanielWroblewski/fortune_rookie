@@ -9,4 +9,5 @@ class User < ActiveRecord::Base
   def balance_as_money
     "$#{'%.2f' % (balance / 100.0)}"
   end
+
 end
