@@ -7,7 +7,7 @@ class SellsController < ApplicationController
   end
 
   def create
-    integerize(params[:buy][:price])
+    integerize(params[:sell][:price])
     @sell = Sell.new(sell_params)
 
     if @sell.save

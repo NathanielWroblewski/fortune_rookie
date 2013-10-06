@@ -31,7 +31,7 @@
     - current_user.holdings.each do |holding|
       %li
         = holding.cash_per_share
-        = "#{holding.player.first_name} #{holding.player.last_name}"
+        =link_to "#{holding.player.first_name} #{holding.player.last_name}", holding.player
 
   -else
     %li You have no holdings.
