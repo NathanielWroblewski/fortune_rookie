@@ -23,3 +23,12 @@
   -else
     %li
       You have no recent sales.
+
+%h2
+  Holdings
+%ul
+  - if current_user.holdings.present?
+    - current_user.holdings.each do |holding|
+      %li= holding.cash_per_share
+  -else
+    %li You have no holdings.
