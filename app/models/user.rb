@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :holdings
+
   def balance_as_money
     "$#{'%.2f' % (balance / 100.0)}"
   end
