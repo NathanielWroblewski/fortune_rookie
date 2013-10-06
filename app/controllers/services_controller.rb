@@ -4,7 +4,8 @@ class ServicesController < ApplicationController
     transactions = transactions.order('updated_at ASC')
     prices = transactions.map(&:price)
     times = transactions.map(&:updated_at)
+    data_points = times.zip(prices)
 
-    render json: { prices: prices, times: times }
+    render json: { dataPoints: data_points }
   end
 end

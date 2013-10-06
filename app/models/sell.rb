@@ -1,4 +1,5 @@
 class Sell < ActiveRecord::Base
+
   belongs_to \
     :seller,
     class_name: 'User',
@@ -6,6 +7,7 @@ class Sell < ActiveRecord::Base
 
   belongs_to :player
 
+  before_validation :status_pending, on: :create
   before_create :create_transaction, if: :buyer_waiting?
   after_create :update_last_ask
 
@@ -21,6 +23,7 @@ class Sell < ActiveRecord::Base
   def create_transaction
     buy = Buy.pair_with_a_sell(player_id, price)
     if buy
+      self.role = 'completed'
       transaction = Transaction.new(
         buyer_id: buy.buyer_id,
         seller_id: seller_id,
@@ -33,8 +36,12 @@ class Sell < ActiveRecord::Base
   end
 
   def self.pair_with_a_buy(player_id, buy_price)
-    sells = Sell.where(player_id: player_id).order('price ASC, updated_at ASC')
-    sells.where("price <= ?", buy_price).first
+    sells = Sell.where(player_id: player_id, role: 'pending')
+    sells.order('price ASC, updated_at ASC').where("price <= ?", buy_price).first
+  end
+
+  def status_pending
+    self.role = 'pending'
   end
 
   def price_in_dollars

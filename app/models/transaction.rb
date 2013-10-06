@@ -22,8 +22,6 @@ class Transaction < ActiveRecord::Base
   validates :shares, presence: true
 
   def create_holding
-    p '*' * 10_000
-    p buyer_id
     Holding.create(
       user_id: buyer_id,
       shares: shares,

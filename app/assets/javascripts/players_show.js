@@ -12,15 +12,13 @@ function drawChart() {
 
   // Create the data table.
   var data = new google.visualization.DataTable();
-  data.addColumn('string', 'Topping');
-  data.addColumn('number', 'Slices');
-  data.addRows([
-    ['Mushrooms', 3],
-    ['Onions', 1],
-    ['Olives', 1],
-    ['Zucchini', 4],
-    ['Pepperoni', 2]
-  ]);
+  var dataPoints;
+  data.addColumn('string', 'Time');
+  data.addColumn('number', 'Price');
+  dataPoints = $('#services').data('data-points');
+  if (dataPoints.length > 0){
+    data.addRows();
+  }
 
   // Set chart options
   var options = {'title':'',
@@ -31,3 +29,4 @@ function drawChart() {
   var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
   chart.draw(data, options);
 }
+

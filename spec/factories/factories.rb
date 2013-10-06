@@ -33,6 +33,7 @@ FactoryGirl.define do
     player
     price 10_00
     shares 1
+    role 'pending'
   end
 
   factory :sell do
@@ -40,6 +41,7 @@ FactoryGirl.define do
     player
     price 10_00
     shares 1
+    role 'pending'
   end
 
   factory :player do
