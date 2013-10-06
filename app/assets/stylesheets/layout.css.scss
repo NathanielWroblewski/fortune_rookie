@@ -1,0 +1,18 @@
+.layout-nav {
+  border-bottom: 2px solid black;
+  color: white;
+  ul {
+    float: right;
+    margin: 0;
+  }
+  li {
+    display: inline;
+    a {
+    color: white;
+  }
+  }
+}
+
+.layout-footer {
+  text-align: center;
+}
