@@ -12,6 +12,7 @@ class Transaction < ActiveRecord::Base
   belongs_to :player
 
   after_create :create_holding
+  after_create :vanquish_holding
 
   validates :buyer, presence: true
   validates :player, presence: true
@@ -30,5 +31,14 @@ class Transaction < ActiveRecord::Base
 
   def price_in_dollars
     "$#{'%.2f' % (price / 100.0)}"
+  end
+
+  def vanquish_holding
+    holding = Holding.find_by(
+      user_id: seller_id,
+      shares: shares,
+      player_id: player_id
+    )
+    holding.destroy
   end
 end
