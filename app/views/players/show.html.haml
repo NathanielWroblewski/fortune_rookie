@@ -1,3 +1,19 @@
-Player Show
+%h2
+  = @player.first_name + " " + @player.last_name
+  = @player.school
+  = @player.position
+
+//= link_to "Buy Now", buy_new_path(@player.id)
+
+%div#chart_div
+
+
+%h2 Jump to other players
+%ul
+- @players.each do |player|
+  %li= link_to player.first_name + " " + player.last_name, player_path(player)
+
+
+%h2 Latest News
 
 #services{data: { 'player-id' => "#{@player.id}" } }
