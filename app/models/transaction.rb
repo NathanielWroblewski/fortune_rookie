@@ -14,6 +14,8 @@ class Transaction < ActiveRecord::Base
   after_create :create_holding
   after_create :update_player
   after_create :vanquish_holding
+  after_create :increment_seller_account
+  after_create :decrement_buyer_account
 
   validates :buyer, presence: true
   validates :player, presence: true
@@ -28,6 +30,16 @@ class Transaction < ActiveRecord::Base
       player_id: player_id,
       price_per_share: price,
     )
+  end
+
+  def decrement_buyer_account
+    user = User.find_by(id: buyer_id)
+    user.update_attributes(balance: (user.balance - price))
+  end
+
+  def increment_seller_account
+    user = User.find_by(id: seller_id)
+    user.update_attributes(balance: (user.balance + price))
   end
 
   def price_in_dollars

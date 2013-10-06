@@ -1,0 +1,27 @@
+<div id="flash">
+  <% flash.each do |key, value| %>
+    <div id="flash_<%= key %>"><%= value %></div>
+  <% end %>
+</div>
+
+<form action="/payments" method="POST" id="braintree-payment-form">
+  <p>
+    <label>Amount</label>
+    <input type="text" size="20" autocomplete="off" name="amount" />
+  </p>
+  <p>
+    <label>Card Number</label>
+    <input type="text" size="20" autocomplete="off" name="credit_card[number]" />
+  </p>
+  <p>
+    <label>Expiration (MM/YYYY)</label>
+    <input type="text" size="2" name="month" /> / <input type="text" size="4" name="year" />
+  </p>
+  <input type="submit" id="submit" />
+</form>
+
+<script src="https://js.braintreegateway.com/v1/braintree.js"></script>
+<script>
+  var braintree = Braintree.create("<%= ENV['BRAINTREE_CLIENT_SIDE_ENCRYPTION_KEY'] %>");
+  braintree.onSubmitEncryptForm('braintree-payment-form');
+</script>

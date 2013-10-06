@@ -3,6 +3,7 @@ FortuneRookie::Application.routes.draw do
   devise_for :users
 
   resources :buys, only: [:new, :create]
+  resources :payments, only: [:new, :create]
   resources :players, only: [:index, :show]
   resources :sells, only: [:new, :create]
   resources :users, only: :show

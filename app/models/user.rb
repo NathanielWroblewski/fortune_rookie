@@ -10,4 +10,8 @@ class User < ActiveRecord::Base
     "$#{'%.2f' % (balance / 100.0)}"
   end
 
+  def braintree_payment(amount)
+    update_attributes(balance: balance + amount)
+  end
+
 end

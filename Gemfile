@@ -6,6 +6,7 @@ gem 'rails', '>= 4.0.0'
 
 gem 'airbrake'
 gem 'backbone-rails'
+gem 'braintree'
 gem 'coffee-rails'
 gem 'delayed_job_active_record', '>= 4.0.0'
 gem 'devise'
