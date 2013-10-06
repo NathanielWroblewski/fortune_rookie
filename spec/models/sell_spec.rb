@@ -100,3 +100,23 @@ describe Sell, '#price_in_dollars' do
     expect(sell.price_in_dollars).to eq '$10.00'
   end
 end
+
+describe Sell, '#update_last_ask' do
+  it 'sets last ask to lowest sale price' do
+    player = create(:player, last_ask: 100_00)
+    sell = build(:sell, price: 10_00, player: player)
+
+    sell.update_last_ask
+
+    expect(player.reload.last_ask).to eq sell.price
+  end
+
+  it 'does not set the last ask to a higher sale price' do
+    player = create(:player, last_ask: 10_00)
+    sell = build(:sell, price: 100_00, player: player)
+
+    sell.update_last_ask
+
+    expect(player.reload.last_ask).to_not eq sell.price
+  end
+end

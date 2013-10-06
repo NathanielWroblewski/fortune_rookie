@@ -7,6 +7,7 @@ class Sell < ActiveRecord::Base
   belongs_to :player
 
   before_create :create_transaction, if: :buyer_waiting?
+  after_create :update_last_ask
 
   validates :player, presence: true
   validates :price, presence: true
@@ -38,5 +39,10 @@ class Sell < ActiveRecord::Base
 
   def price_in_dollars
     "$#{'%.2f' % (price / 100.0)}"
+  end
+
+  def update_last_ask
+    player = Player.find_by(id: player_id)
+    player.update_attributes(last_ask: price) if price < player.last_ask
   end
 end
