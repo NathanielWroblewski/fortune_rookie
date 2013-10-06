@@ -26,4 +26,18 @@ FactoryGirl.define do
     shares 1
     price_per_share 10_00
   end
+
+  factory :buy do
+    association :buyer, factory: :user
+
+    price 10_00
+    shares 1
+  end
+
+  factory :sell do
+    association :seller, factory: :user
+
+    price 10_00
+    shares 1
+  end
 end
