@@ -29,6 +29,9 @@
 %ul
   - if current_user.holdings.present?
     - current_user.holdings.each do |holding|
-      %li= holding.cash_per_share
+      %li
+        = holding.cash_per_share
+        = "#{holding.player.first_name} #{holding.player.last_name}"
+
   -else
     %li You have no holdings.

@@ -10,6 +10,11 @@
         = link_to 'Buy', "/buys/new/#{player.id}"
         -if current_user.holdings.any?{|holding| holding.player_id == player.id}
           = link_to 'Sell', "/sells/new/#{player.id}"
-      %li= player.ipo
+      %li
+        Current Price
+        = player.current_price
+      %li
+        Ask Price
+        = player.last_ask
 -else
   %li No players held.
