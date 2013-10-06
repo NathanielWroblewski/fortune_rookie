@@ -1,11 +1,11 @@
-%h1= current_user.email
-%h3
+%h3= current_user.email
+%h4
   Account Balance
   = current_user.balance
 
-%h2
+%h4
   Recent Purchases
-%h3
+%h4
   Buys
 %ul
   -if @buys.present?
@@ -14,7 +14,7 @@
   -else
     %li
       You have no recent purchases.
-%h3
+%h5
   Sells
 %ul
   -if @sales.present?
@@ -24,7 +24,7 @@
     %li
       You have no recent sales.
 
-%h2
+%h5
   Holdings
 %ul
   - if current_user.holdings.present?
