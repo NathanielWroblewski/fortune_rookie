@@ -7,6 +7,7 @@ class BuysController < ApplicationController
   end
 
   def create
+    integerize(params[:buy][:price])
     @buy = Buy.new(buy_params)
 
     if @buy.save
@@ -19,6 +20,6 @@ class BuysController < ApplicationController
   private
 
   def buy_params
-    params.require(:buy).permit(:player_id, :shares, :price, :buyer_id)
+    params.require(:buy).permit(:player_id, :shares, :price, :buyer_id, :role)
   end
 end

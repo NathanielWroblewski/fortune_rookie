@@ -3,8 +3,9 @@
 =form_for @buy do |f|
   =f.hidden_field :buyer_id, value: current_user.id
   =f.hidden_field :player_id, value: @player.id
+  =f.hidden_field :role, value: 'pending'
   =f.label :shares
   =f.text_field :shares
-  =f.label :price
+  =f.label 'Price ($ per share)'
   =f.text_field :price
   =f.submit 'Submit'

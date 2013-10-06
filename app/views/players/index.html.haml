@@ -12,9 +12,12 @@
           = link_to 'Sell', "/sells/new/#{player.id}"
       %li
         Current Price
-        = player.current_price
+        = player.current_price_in_dollars
       %li
-        Ask Price
-        = player.last_ask
+        Last Ask
+        -if player.last_ask == 0
+          No last ask
+        -else
+          = player.ask_price_in_dollars
 -else
   %li No players held.

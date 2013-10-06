@@ -9,11 +9,11 @@ describe Player, 'validations' do
   it { expect(subject).to validate_presence_of(:current_price) }
 end
 
-describe Player, '#ipo_in_dollars' do
+describe Player, '#current_price_in_dollars' do
   it 'converts the ipo into a dollar amount' do
-    player = build(:player, ipo: 32_00)
+    player = build(:player, current_price: 32_00)
 
-    expect(player.ipo_in_dollars).to eq '$32.00'
+    expect(player.current_price_in_dollars).to eq '$32.00'
   end
 end
 

@@ -10,7 +10,7 @@
 %ul
   -if @buys.present?
     - @buys.each do |buy|
-      %li= buy.price
+      %li= buy.price_in_dollars
   -else
     %li
       You have no recent purchases.

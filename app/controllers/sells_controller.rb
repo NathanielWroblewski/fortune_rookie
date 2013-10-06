@@ -7,6 +7,7 @@ class SellsController < ApplicationController
   end
 
   def create
+    integerize(params[:buy][:price])
     @sell = Sell.new(sell_params)
 
     if @sell.save
@@ -17,6 +18,6 @@ class SellsController < ApplicationController
   end
 
   def sell_params
-    params.require(:sell).permit(:price, :shares, :player_id, :seller_id)
+    params.require(:sell).permit(:price, :shares, :player_id, :seller_id, :role)
   end
 end

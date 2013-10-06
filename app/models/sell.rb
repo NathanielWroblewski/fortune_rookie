@@ -7,7 +7,6 @@ class Sell < ActiveRecord::Base
 
   belongs_to :player
 
-  before_validation :status_pending, on: :create
   before_create :create_transaction, if: :buyer_waiting?
   after_create :update_last_ask
 
@@ -38,10 +37,6 @@ class Sell < ActiveRecord::Base
   def self.pair_with_a_buy(player_id, buy_price)
     sells = Sell.where(player_id: player_id, role: 'pending')
     sells.order('price ASC, updated_at ASC').where("price <= ?", buy_price).first
-  end
-
-  def status_pending
-    self.role = 'pending'
   end
 
   def price_in_dollars
