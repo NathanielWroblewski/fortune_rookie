@@ -27,8 +27,8 @@ class Transaction < ActiveRecord::Base
   def complete_buy_and_sell
     buy = Buy.find_by(id: buyer_id)
     sell = Sell.find_by(id: seller_id)
-    buy.update_attributes(role: 'completed')
-    sell.update_attributes(role: 'completed')
+    buy.update_attributes(role: 'completed') if buy
+    sell.update_attributes(role: 'completed') if sell
   end
 
   def create_holding

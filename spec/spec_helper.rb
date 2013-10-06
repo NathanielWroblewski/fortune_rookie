@@ -25,6 +25,10 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = false
   config.include FactoryGirl::Syntax::Default
   config.include Paperclip::Shoulda::Matchers
+
+  config.before(:each) do
+    admin = create(:user, email: 'admin@admin.com', password: 'admin_bro')
+  end
 end
 
 Capybara.javascript_driver = :webkit

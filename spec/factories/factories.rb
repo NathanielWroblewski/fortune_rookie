@@ -50,5 +50,6 @@ FactoryGirl.define do
     draft_year    Time.now.year
     ipo           32_00
     current_price 320_00
+    last_ask      35_00
   end
 end

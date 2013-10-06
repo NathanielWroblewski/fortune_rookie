@@ -103,8 +103,9 @@ end
 
 describe Sell, '#update_last_ask' do
   it 'sets last ask to lowest sale price' do
-    player = create(:player, last_ask: 100_00)
-    sell = build(:sell, price: 10_00, player: player)
+    player = create(:player)
+    player.update_attributes(last_ask: 100_00)
+    sell = build(:sell, price: 10_00, player: player, role: 'pending')
 
     sell.update_last_ask
 
@@ -112,8 +113,9 @@ describe Sell, '#update_last_ask' do
   end
 
   it 'does not set the last ask to a higher sale price' do
-    player = create(:player, last_ask: 10_00)
-    sell = build(:sell, price: 100_00, player: player)
+    player = create(:player)
+    player.update_attributes(last_ask: 10_00)
+    sell = build(:sell, price: 100_00, player: player, role: 'pending')
 
     sell.update_last_ask
 

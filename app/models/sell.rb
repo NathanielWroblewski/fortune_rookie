@@ -45,6 +45,8 @@ class Sell < ActiveRecord::Base
 
   def update_last_ask
     player = Player.find_by(id: player_id)
-    player.update_attributes(last_ask: price) if price < player.last_ask
+    if price < player.last_ask || player.last_ask = 0
+      player.update_attributes(last_ask: price)
+    end
   end
 end
