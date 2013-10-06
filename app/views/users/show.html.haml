@@ -1,38 +1,53 @@
-%h3= current_user.email
+%h3
+  Welcome
+  = current_user.email
 %h4
   Account Balance
   = current_user.balance_as_money
   = link_to 'Add Money', new_payment_path
 
-%h4
-  Recent Purchases
-%h4
-  Buys
-%ul
-  -if @buys.present?
-    - @buys.each do |buy|
-      %li= buy.price_in_dollars
-  -else
-    %li
-      You have no recent purchases.
-%h5
-  Sells
-%ul
-  -if @sales.present?
-    - @sales.each do |sell|
-      %li= sell.price
-  -else
-    %li
-      You have no recent sales.
+.row
+  %h5.small-3.columns
+    Recent Transactions    
+-if @transactions.present?
+  - @transactions.each do |transaction|
+    .row
+      %span.small-3.columns
+        Player
+      %span.small-2.columns
+        Price paid
+      %span.small-7.columns
+    .row
+      %span.small-3.columns
+        =link_to "#{transaction.player.first_name} #{transaction.player.last_name}", transaction.player
+      %span.small-2.columns
+        = transaction.price_in_dollars
+      %span.small-7.columns
+-else
+  %span.small-3.columns
+    You have no recent transactions.
 
-%h5
-  Holdings
-%ul
-  - if current_user.holdings.present?
-    - current_user.holdings.each do |holding|
-      %li
-        = holding.cash_per_share
+.row
+  %h5.small-3.columns
+    Holdings
+- if current_user.holdings.present?
+  - current_user.holdings.each do |holding|
+    .row
+      %span.small-3.columns
+        Player
+      %span.small-2.columns
+        Shares
+      %span.small-2.columns
+        Price paid
+      %span.small-5.columns
+    .row
+      %span.small-3.columns
         =link_to "#{holding.player.first_name} #{holding.player.last_name}", holding.player
-
-  -else
-    %li You have no holdings.
+      %span.small-2.columns
+        = holding.shares
+      %span.small-2.columns
+        = holding.cash_per_share
+      %span.small-5.columns
+-else
+  %span.small-3.columns
+    You have no holdings.

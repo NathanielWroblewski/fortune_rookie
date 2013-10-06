@@ -6,11 +6,13 @@ html, body {
 }
 
 .layout-nav {
+  min-width: 900px;
   border-bottom: 2px solid black;
   color: white;
+  position: fixed;
   ul {
     float: right;
-    margin: 0;
+    margin-top: 9px;
   }
   li {
     display: inline;
@@ -30,7 +32,7 @@ html, body {
   min-height: 100%;
   height: auto !important;
   height: 100%;
-  margin: 0 auto -120px; /* the bottom margin is the negative value of the footer's height */
+  margin: 50px auto -120px; /* the bottom margin is the negative value of the footer's height */
 }
 footer, .push {
   height: 120px; /* '.push' must be the same height as 'footer' */
