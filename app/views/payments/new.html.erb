@@ -1,27 +1,46 @@
 <div id="flash">
   <% flash.each do |key, value| %>
-    <div id="flash_<%= key %>"><%= value %></div>
+  <div id="flash_<%= key %>"><%= value %></div>
   <% end %>
 </div>
 
 <form action="/payments" method="POST" id="braintree-payment-form">
-  <p>
-    <label>Amount</label>
-    <input type="text" size="20" autocomplete="off" name="amount" />
-  </p>
-  <p>
-    <label>Card Number</label>
-    <input type="text" size="20" autocomplete="off" name="credit_card[number]" />
-  </p>
-  <p>
-    <label>Expiration (MM/YYYY)</label>
-    <input type="text" size="2" name="month" /> / <input type="text" size="4" name="year" />
-  </p>
-  <input type="submit" id="submit" />
+  <fieldset>
+    <div class="row">
+      <div class="small-3 columns">
+        <label>Amount</label>
+        <input type="text" size="20" autocomplete="off" name="amount" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-3 columns">
+        <label>Card Number</label>
+        <input type="text" size="20" autocomplete="off" name="credit_card[number]" value="4111111111111111"/>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-1 columns">
+        <label>Expiration (MM/YYYY)</label>
+        <input type="text" size="2" name="month" value="11"/>
+      </div>
+      <div class="small-1 small-offset-10 left columns">
+        <input type="text" size="4" name="year" value="2015"/>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="small-2 columns">
+        <input type="submit" id="submit" />
+      </div>
+    </div>
+  </fieldset>
 </form>
 
-<script src="https://js.braintreegateway.com/v1/braintree.js"></script>
-<script>
-  var braintree = Braintree.create("<%= ENV['BRAINTREE_CLIENT_SIDE_ENCRYPTION_KEY'] %>");
-  braintree.onSubmitEncryptForm('braintree-payment-form');
+<script type="text/javascript" src="https://js.braintreegateway.com/v1/braintree.js"></script>
+<script type="text/javascript">
+var braintree = Braintree.create("<%= ENV['BRAINTREE_CLIENT_SIDE_ENCRYPTION_KEY'] %>");
+braintree.onSubmitEncryptForm('braintree-payment-form');
 </script>
