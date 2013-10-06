@@ -16,7 +16,7 @@ FactoryGirl.define do
   factory :transaction do
     association :buyer, factory: :user
     association :seller, factory: :user
-
+    player
     price 10_00
     shares 1
   end
@@ -30,14 +30,14 @@ FactoryGirl.define do
 
   factory :buy do
     association :buyer, factory: :user
-
+    player
     price 10_00
     shares 1
   end
 
   factory :sell do
     association :seller, factory: :user
-
+    player
     price 10_00
     shares 1
   end
