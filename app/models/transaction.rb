@@ -9,9 +9,12 @@ class Transaction < ActiveRecord::Base
     class_name: 'User',
     foreign_key: 'seller_id'
 
+  belongs_to :player
+
   validates :buyer, presence: true
-  validates :seller, presence: true
+  validates :player, presence: true
   validates :price, presence: true
+  validates :seller, presence: true
   validates :shares, presence: true
 
   def price_in_dollars

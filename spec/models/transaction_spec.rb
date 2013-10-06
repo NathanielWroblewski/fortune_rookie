@@ -3,12 +3,14 @@ require 'spec_helper'
 describe Transaction, 'associations' do
   it { expect(subject).to belong_to(:buyer) }
   it { expect(subject).to belong_to(:seller) }
+  it { expect(subject).to belong_to(:player) }
 end
 
 describe Transaction, 'validations' do
   it { expect(subject).to validate_presence_of(:buyer) }
-  it { expect(subject).to validate_presence_of(:seller) }
+  it { expect(subject).to validate_presence_of(:player) }
   it { expect(subject).to validate_presence_of(:price) }
+  it { expect(subject).to validate_presence_of(:seller) }
   it { expect(subject).to validate_presence_of(:shares) }
 end
 

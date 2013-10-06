@@ -1,0 +1,10 @@
+%h1 Purchase
+%h2= "#{@player.first_name} #{@player.last_name}"
+=form_for @buy do |f|
+  =f.hidden_field :buyer_id, value: current_user.id
+  =f.hidden_field :player_id, value: @player.id
+  =f.label :shares
+  =f.text_field :shares
+  =f.label :price
+  =f.text_field :price
+  =f.submit 'Submit'

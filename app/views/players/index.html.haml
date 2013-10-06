@@ -1,12 +1,13 @@
 %h2
-  = Time.now.year 
+  = Time.now.year
   Draft
 -if @players.present?
   - @players.each do |player|
-    %ul 
+    %ul
       %li
-        = player.first_name 
+        = player.first_name
         = player.last_name
+        = link_to 'Buy', "/buys/new/#{player.id}"
       %li= player.ipo
 -else
   %li No players held.
