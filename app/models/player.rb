@@ -29,6 +29,7 @@ class Player < ActiveRecord::Base
 
   def create_sell
     admin = User.find_by(email: 'admin@admin.com')
-    Sell.create(player_id: id, seller_id: admin.id, price: ipo, shares: 100, role: 'pending')
+    Sell.create(player_id: id, seller_id: admin.id, price: ipo, shares: 1, role: 'pending')
+    admin.holdings << Holding.create(player_id: id, user_id: admin.id, price_per_share: ipo, shares: 1)
   end
 end

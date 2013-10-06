@@ -11,9 +11,9 @@ class Transaction < ActiveRecord::Base
 
   belongs_to :player
 
+  after_create :vanquish_holding
   after_create :create_holding
   after_create :update_player
-  after_create :vanquish_holding
   after_create :increment_seller_account
   after_create :decrement_buyer_account
   after_create :complete_buy_and_sell
@@ -65,6 +65,6 @@ class Transaction < ActiveRecord::Base
       shares: shares,
       player_id: player_id
     )
-    holding.try(:destroy)
+    holding.destroy
   end
 end
