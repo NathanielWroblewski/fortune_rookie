@@ -19,6 +19,7 @@ describe Buy, '#create_transaction' do
     buyer = create(:user)
     buy = build(:buy, player: player, price: 10_00, buyer: buyer, shares: 0)
     sell = create(:sell, player: player, price: 9_00, seller: seller)
+    Transaction.any_instance.stub(:vanquish_holding)
 
     transaction = buy.create_transaction
 
