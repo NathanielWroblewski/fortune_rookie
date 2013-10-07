@@ -1,6 +1,8 @@
-You're being propped up
-============================
+Fortune Rookie
+===
 
-Consult the following repo for best practices and workflow protocol:
+Description
+---
+An exchange for NFL draftees.
 
-[Prop](https://github.com/NathanielWroblewski/prop)
+Powered by [Prop](https://github.com/NathanielWroblewski/prop)
